@@ -234,9 +234,12 @@ resource "aws_lambda_function" "aft_cleanup_resources" {
   timeout          = "300"
   layers           = [var.aft_common_layer_arn]
 
-  vpc_config {
-    subnet_ids         = tolist([aws_subnet.aft_vpc_private_subnet_01.id, aws_subnet.aft_vpc_private_subnet_02.id])
-    security_group_ids = tolist([aws_security_group.aft_vpc_default_sg.id])
+  dynamic "vpc_config" {
+    for_each = var.aft_feature_disable_private_networking ? {} : { k = "v" }
+    content {
+      subnet_ids         = tolist([aws_subnet.aft_vpc_private_subnet_01.id, aws_subnet.aft_vpc_private_subnet_02.id])
+      security_group_ids = tolist([aws_security_group.aft_vpc_default_sg.id])
+    }
   }
 
 }
