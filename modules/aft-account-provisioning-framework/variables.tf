@@ -37,6 +37,10 @@ variable "aft_features_sfn_name" {
   type = string
 }
 
+variable "aft_feature_disable_private_networking" {
+  type = bool
+}
+
 variable "aft_vpc_private_subnets" {
   type = list(string)
 }
