@@ -102,7 +102,7 @@ resource "aws_route_table_association" "aft_vpc_private_subnet_01" {
 }
 
 resource "aws_route_table_association" "aft_vpc_private_subnet_02" {
- count           = var.aft_feature_disable_private_networking ? 0 : 1
+  count          = var.aft_feature_disable_private_networking ? 0 : 1
   subnet_id      = aws_subnet.aft_vpc_private_subnet_02[0].id
   route_table_id = aws_route_table.aft_vpc_private_subnet_02[0].id
 }
